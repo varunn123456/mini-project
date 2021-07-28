@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+    <head>
+        <meta charset="utf-8">
+        <title>Bangalore House Price Prediction</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+        <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+        <h2 class="heading"><span class="heading_font"> House Price Prediction</span></h2>
+        <div class="box">
+        <form action="{{ url_for('predict') }}" method="POST">
+        <input class="loca" type="text" name="Location" list="Locations"  placeholder="Location (eg. 1st Phase JP Nagar)">
+            <datalist id="Locations">
+                {% for local in localities %}
+                 <option value="{{local}}" >{{local}}</option>
+                 {% endfor %}
+            </datalist><br>
+        
+        <input type="range" min="0" max="4" value="2" class="myslider" id="sliderRange" name="BHK">
+            <p class="para1" type="text">BHK Size is: <span id="demo"></span></p><br>
+        <input type="range" min="0" max="4" value="3" class="myslider1" id="sliderRange1" name="Bathroom">
+            <p class="para2" type="text">Number of Bathrooms are: <span id="demo1"></span></p><br>
+        <input class="balconya" type="text" name="Balcony"  placeholder="Balcony ex: 3"><br>
+        <input class="sqfta" type="text" name="Sq feet" placeholder="Sq. feet ex: 1000"><br>
+        <input class="typea" type="text" name="Area Type" list="Area_types"  placeholder="Area Type eg. Plot Area">
+            <datalist id="Area_types">
+                {% for area in area_types %}
+                <option value="{{area}}" >{{area}}</option>
+                {% endfor %}
+            </datalist>
+            <input type="Submit" class="butts" value="Predict">
+            </div>
+        </form>
+        <script>
+            var rangeslider = document.getElementById("sliderRange");
+            var output = document.getElementById("demo");
+
+            var rangeslider1 = document.getElementById("sliderRange1");
+            var output1 = document.getElementById("demo1");
+
+            output.innerHTML = rangeslider.value;
+            output1.innerHTML = rangeslider1.value;
+            rangeslider1.oninput = function() {
+            output1.innerHTML = this.value;
+            }
+
+            rangeslider.oninput = function() {
+            output.innerHTML = this.value;
+            }
+            </script>
+            
+    </body>
+</html>
